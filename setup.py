@@ -7,7 +7,6 @@ if sys.version_info < MIN_PYTHON:
     sys.stderr.write("Python {}.{} or later is required\n".format(*MIN_PYTHON))
     sys.exit(1)
 
-
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 

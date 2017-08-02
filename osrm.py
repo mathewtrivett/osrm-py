@@ -127,6 +127,26 @@ class BaseRequest:
         raise OSRMServerException(url, response)
 
 
+
+class TableRequest(BaseRequest):
+
+    service = 'table'
+
+    def __init__(self, sources = [], destinations = [], **kwargs):
+        super().__init__(**kwargs)
+        assert type(sources) is list
+        assert type(destinations) is list
+        self.sources = sources
+        self.destinations = destinations
+
+    def get_options(self):
+        options = super().get_options()
+        options.update({
+            "sources": self._encode_array(self.destinations)
+            "destinations": self._encode_array(self.sources)
+        })
+
+
 class NearestRequest(BaseRequest):
 
     service = 'nearest'
@@ -263,6 +283,11 @@ class Client(BaseClient):
             RouteRequest(**kwargs)
         )
 
+    def table(self, **kwargs):
+        return self._request(
+            TableRequest(**kwargs)
+        )
+
     def match(self, **kwargs):
         return self._request(
             MatchRequest(**kwargs)
@@ -299,6 +324,11 @@ class AioHTTPClient(BaseClient):
     async def route(self, **kwargs):
         return await self._request(
             RouteRequest(**kwargs)
+        )
+
+    async def table(self, **kwargs):
+        return await self._request(
+            TableRequest(**kwargs)
         )
 
     async def match(self, **kwargs):
