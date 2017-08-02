@@ -69,12 +69,20 @@ class TestClient(unittest.TestCase):
             )
         assert cm.exception.args[0]['code'] == 'NoSegment'
 
+
     def test_route(self):
         response = self.client.route(
             coordinates=[[-74.0056, 40.6197], [-74.0034, 40.6333]],
             overview=osrm.overview.full
         )
         assert response['code'] == 'Ok'
+
+
+    def test_table(self):
+        response = self.client.table(
+            coordinates=[[-74.0056, 40.6197], [-74.0034, 40.6333]])
+        assert response['code'] == 'Ok'
+
 
     def test_match(self):
         response = self.client.match(
