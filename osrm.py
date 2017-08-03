@@ -142,7 +142,7 @@ class TableRequest(BaseRequest):
     def get_options(self):
         options = super().get_options()
         options.update({
-            "sources": self._encode_array(self.destinations)
+            "sources": self._encode_array(self.destinations),
             "destinations": self._encode_array(self.sources)
         })
 
