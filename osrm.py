@@ -145,6 +145,7 @@ class TableRequest(BaseRequest):
             "sources": self._encode_array(self.destinations),
             "destinations": self._encode_array(self.sources)
         })
+        return options
 
 
 class NearestRequest(BaseRequest):
