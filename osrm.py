@@ -111,7 +111,7 @@ class BaseRequest:
         }
 
     def _encode_array(self, value):
-        return ';'.join(map(lambda x: str(x) if x else "", value))
+        return ';'.join(map(lambda x: str(x) if x is not None else "", value))
 
     def _encode_bool(self, value):
         return 'true' if value else 'false'
@@ -142,8 +142,8 @@ class TableRequest(BaseRequest):
     def get_options(self):
         options = super().get_options()
         options.update({
-            "sources": self._encode_array(self.destinations),
-            "destinations": self._encode_array(self.sources)
+            "sources": self._encode_array(self.sources),
+            "destinations": self._encode_array(self.destinations)
         })
         return options
 
