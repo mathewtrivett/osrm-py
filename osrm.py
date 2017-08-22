@@ -298,7 +298,6 @@ class Client(BaseClient):
         if not requests:
             raise RuntimeError('Module \'requests\' is not available')
         url, params = self._build_request(request)
-        print(url,params)
         response = self.session.get(url, params=params, timeout=self.timeout)
         return request.decode_response(url, response.status_code, response.text)
 
